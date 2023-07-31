@@ -12,7 +12,7 @@ SUBDIRS = include lib tests
 AM_CXXFLAGS = -fcoroutines -std=c++20
 
 sbin_PROGRAMS = ublk ublk_user_id
-noinst_PROGRAMS = demo_null demo_event
+noinst_PROGRAMS = demo_null demo_event s3
 dist_sbin_SCRIPTS = utils/ublk_chown.sh utils/ublk_chown_docker.sh
 
 ublk_SOURCES = ublksrv_tgt.cpp tgt_null.cpp tgt_loop.cpp qcow2/tgt_qcow2.cpp \
@@ -20,7 +20,7 @@ ublk_SOURCES = ublksrv_tgt.cpp tgt_null.cpp tgt_loop.cpp qcow2/tgt_qcow2.cpp \
 			   qcow2/qcow2_flush_meta.cpp \
 			   nbd/tgt_nbd.cpp nbd/cliserv.c nbd/nbd-client.c
 ublk_CFLAGS = $(WARNINGS_CFLAGS) $(LIBURING_CFLAGS) $(PTHREAD_CFLAGS)
-ublk_CPPFLAGS = $(ublk_CFLAGS) -I$(top_srcdir)/include
+ublk_CPPFLAGS = $(ublk_CFLAGS) -I$(top_srcdir)/include -I
 ublk_LDADD = lib/libublksrv.la $(LIBURING_LIBS) $(PTHREAD_LIBS)
 
 demo_null_SOURCES = demo_null.c
@@ -32,6 +32,11 @@ demo_event_SOURCES = demo_event.c
 demo_event_CFLAGS = $(WARNINGS_CFLAGS) $(LIBURING_CFLAGS) $(PTHREAD_CFLAGS)
 demo_event_CPPFLAGS = $(demo_event_CFLAGS) -I$(top_srcdir)/include
 demo_event_LDADD = lib/libublksrv.la $(LIBURING_LIBS) $(PTHREAD_LIBS)
+
+s3_SOURCES = tgt_s3.cpp
+s3_CFLAGS = $(WARNINGS_CFLAGS) $(LIBURING_CFLAGS) $(PTHREAD_CFLAGS)
+s3_CPPFLAGS = $(demo_event_CFLAGS) -I$(top_srcdir)/include
+s3_LDADD = lib/libublksrv.la $(LIBURING_LIBS) $(PTHREAD_LIBS)
 
 ublk_user_id_SOURCES = utils/ublk_user_id.c
 ublk_user_id_CFLAGS = $(WARNINGS_CFLAGS) $(LIBURING_CFLAGS) $(PTHREAD_CFLAGS)

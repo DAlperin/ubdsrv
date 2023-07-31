@@ -130,6 +130,8 @@ enum {
 
 	UBLKSRV_TGT_TYPE_NBD,
 
+    UBLKSRV_TGT_TYPE_S3,
+
 	UBLKSRV_TGT_TYPE_MAX = 256,
 };
 extern int ublksrv_register_tgt_type(struct ublksrv_tgt_type *type);
